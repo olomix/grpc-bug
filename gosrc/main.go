@@ -6,7 +6,6 @@ import(
 	"log"
 	"google.golang.org/grpc"
 	"fmt"
-	"time"
 )
 
 type server struct {}
@@ -19,7 +18,6 @@ func (s *server) SayHello(req *pb.HelloRequest, srv pb.Greeter_SayHelloServer) e
 			log.Printf("req %v failed", i)
 			return err
 		}
-		// time.Sleep(50*time.Microsecond)
 		log.Printf("ok %v", i)
 	}
 	return nil
