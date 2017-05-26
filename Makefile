@@ -1,5 +1,3 @@
-GOPATH=.go
-
 CURRDIR := $(shell pwd)
 GOPATH := ${CURRDIR}/.build
 PYENV := ${CURRDIR}/.pyenv
