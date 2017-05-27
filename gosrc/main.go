@@ -6,6 +6,12 @@ import(
 	"log"
 	"google.golang.org/grpc"
 	"fmt"
+	"net/http"
+)
+
+const (
+	grpcListenAddr = ":50051"
+	httpListenAddr = ":50052"
 )
 
 type server struct {}
@@ -18,13 +24,23 @@ func (s *server) SayHello(req *pb.HelloRequest, srv pb.Greeter_SayHelloServer) e
 			log.Printf("req %v failed", i)
 			return err
 		}
-		log.Printf("ok %v", i)
+		if i % 1000 == 0 {
+			log.Printf("ok %v", i)
+		}
 	}
 	return nil
 }
 
+func runDebugHttp() {
+	go func() {
+		log.Fatal(http.ListenAndServe(httpListenAddr, nil))
+	}()
+}
+
 func main() {
-	lis, err := net.Listen("tcp", ":50051")
+	runDebugHttp()
+
+	lis, err := net.Listen("tcp", grpcListenAddr)
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
