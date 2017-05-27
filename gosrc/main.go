@@ -1,12 +1,12 @@
 package main
 
-import(
-	pb "protobuf"
-	"net"
-	"log"
-	"google.golang.org/grpc"
+import (
 	"fmt"
+	"google.golang.org/grpc"
+	"log"
+	"net"
 	"net/http"
+	pb "protobuf"
 )
 
 const (
@@ -14,7 +14,7 @@ const (
 	httpListenAddr = ":50052"
 )
 
-type server struct {}
+type server struct{}
 
 func (s *server) SayHello(req *pb.HelloRequest, srv pb.Greeter_SayHelloServer) error {
 	log.Printf("Request: %v", req)
@@ -24,7 +24,7 @@ func (s *server) SayHello(req *pb.HelloRequest, srv pb.Greeter_SayHelloServer) e
 			log.Printf("req %v failed", i)
 			return err
 		}
-		if i % 1000 == 0 {
+		if i%1000 == 0 {
 			log.Printf("ok %v", i)
 		}
 	}
